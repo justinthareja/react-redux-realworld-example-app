@@ -1,130 +1,202 @@
 # e2e Spec
 
 # Home Page
-- Should render a banner
+<!-- concept: hello world -->
+- Should render a banner 
+
+<!-- concept: render a list of stubbed articles -->
+- Should render a feed of article snippets
+- Should sort article snippets in the feed by most recent
+
+<!-- concept: render dynamic list -->
+- Should render a feed of article snippets from API
+
+<!-- concept: container component -->
 - Should render a feed container with a 'Global Feed' tab
-- Should render a feed of all articles when the 'Global Feed' tab is selected
-- Should sort articles in the feed by most recent
+
+<!-- concept: re-enforcing lists and server requests -->
 - Should render a list of tags
+
+<!-- concept: handling user input -->
+- Should render a feed of all articles when the 'Global Feed' tab is selected
+- Should render a feed of articles with coresponding tag when a tag in the tag list is selected
+
+<!-- concept: put it all together with pagination -->
 - Should render some pagination for articles (TODO: add pagination template)
-- Should render a new tab with tag feed when a tag is clicked
 
-# Article Details Page
-- Should exist at /#/article/:articleId
-- Should render a title banner 
-- Should render markdown from sever
-- Should render a comments section at the bottom
-
-# Home Page
+<!-- concept: routing -->
+- Home page should exist at /#/ (template check)
+- Article Details page should exist at /#/article/:articleId (template check)
 - Should navigate to the Article Details page when an article name is clicked
 
+# Article Details Page
+
+<!-- concept: unique product requirement -->
+- Should render markdown from sever
+
+<!-- concept: re-enforce lists and server requests -->
+- Should render a comments section at the bottom
+
 # Header
+
+<!-- concept: components agnostic to routing) -->
 - Should render on the Home page
 - Should render on the Article Details page
-- Should render a <nav> element
-- Should render the Conduit logo
 
 # Footer
+
+<!-- concept: re-enforce components agnostic to routing) -->
 - Should render on the Home page
 - Should render on the Article Details page
-- Should render a <footer> element
-- Should render a Conduit logo
 
 # Profile Page
-- Should exist at /#/:@username
-- Should render a user banner
+
+<!-- concept: re-enforce routing -->
+- Should exist at /#/:@username (template check)
+
+<!-- concept: re-enforce components agnostic to routing) -->
 - Should render the header and footer
+
+<!-- concept: re-enforce container components -->
 - Should render a feed container with a 'My Articles' and 'Favorited Articles' tab
+
+<!-- concept: re-enforce handling user input -->
 - Should render a feed of the user's authored articles when the 'My Articles' tab is selected
 - Should render a feed of the user's favorited articles when the 'Favorited Articles' tab is selected
-- Should render 'No articles are here... yet' if there are no favorited articles
+
+<!-- concept: conditional rendering -->
+- Should render the text 'No articles are here... yet' if ther user has not favorited any articles
+- Should render the text 'No articles are here... yet' if the user has not authored any articles
+
+<!-- concept: linking -->
 - Should navigate to the Article Details page when an article name is clicked
 
 # Sign Up Page
+
+<!-- concept: easy re-enforcement wins -->
 - Should exist at /#/register
 - Should render a sign up form
 - Should render the header and footer
+- Should have a link to Sign In Page
 
 # Sign In Page
+
+<!-- concept: easy re-enforcement wins -->
 - Should exist at /#/login
 - Should render a sign in form
 - Should render the header and footer
 - Should have a link to Sign Up Page
 
-# Sign Up Page
-- Should have a link to Sign In Page
-
 # Header
+
+<!-- concept: easy re-enforcement wins -->
 - Should have a link to the Sign Up Page
 - Should have a link to the Sign In Page
 
 # Article Details Page
+
+<!-- concept: easy re-enforcement wins -->
 - Should have a link to the Sign Up Page
 - Should have a link to the Sign In Page
 
 # Feature - Authentication
 
 ## Sign Up Page
+
+<!-- concept: handling error mesasges -->
 - Should render server error messages
+
+<!-- concept: jwt authentication -->
 - Should use JWT authentication
+
+<!-- concept: redirect -->
 - Should redirect to the Home page on sign up
 
 ## Sign In Page
+
+<!-- concept: handling error mesasges -->
 - Should render server error messages
+
+<!-- concept: jwt authentication -->
 - Should use JWT authentication
+
+<!-- concept: redirect -->
 - Should redirect to the Home page on sign in
 
+<!-- **** -->
 <!-- The user is authentiated from here on out  -->
 <!-- These are features on previously built pages that need to be added because of authentication -->
-# Home Page
-- Should contain a 'Your Feed' tab
-- Should render a feed of authenticated user's authored articles when the 'Your Feed' tab is selected
-- Should render 'No articles are here... yet' if there are no authored articles when the 'Your Feed' tab is selected
-- Should activate 'Your Feed' tab when the user initially signs in
+<!-- **** -->
 
-# Settings Page
-- Settings Page should exist at /#/settings
-- Should render a settings form
-- Clicking Update settings should update settings
-- Clicking Logout button should log out user and redirect to Home Page
+## Settings Page
 
-# Profile
-- Should render a 'Editing Profile Settings' button should navigate to Settings Page
+<!-- concept: re-enforce routing -->
+- Should exist at /#/settings (template check)
 
-# Header
+<!-- concept: putting the U in CRUD -->
+- Should updated user's settings when "Update Settings" is clicked
+
+<!-- concept: jwt authentication + redirect -->
+- Should logout user and redirect to Home Page when the "Logout" button is clicked
+
+
+## Profile
+
+<!-- concept: conditional rendering -->
+- Should render a "Editing Profile Settings" button should navigate to Settings Page
+
+## Header
+
+<!-- concept: conditional rendering -->
 - Should render a link displaying username that navigated to Profile Page
-- Should render a 'Settings' link that navigates to Settings Page
+- Should render a "Settings" link that navigates to Settings Page
 
-
+<!-- **** -->
 <!-- These modules can be done in parallel -->
-# Feature - Authoring Comment
-- A user should be able to post a new comment to an article from the Article Page
-- A user should be able to delete their comment on an article from the Article Page
+<!-- **** -->
+
+# Feature - Authoring Comment (requires authentication)
+
+## Article Page
+- Should post a new comment when "Post Comment" is clicked
+- Should delete an existing comment when the trash can is clicked 
 
 # Feature - Authoring Article
-- Create Article Page should exist at /#/editor
-- Create Article Page should render an article form
-- Create Article Page should render a 'Publish Article' button that when clicked posts the new article
-- Article Page of an authored article should display 'Edit Article' button and 'Delete Article'
-- Clicking 'Delete Article' should delete the article
-- Clicking 'Edit Article' should navigate to /#/editor/:articleId
-- Edit Article Page should render an article form
-- Edit Article Page should render a 'Publish Article' button that when clicks updates the article
-- An Article can contain multiple tags
-- Header should render a 'New Post' link that navigates to Create Article Page
+
+## Create Article Page
+- Should exist at /#/editor (tmplate check)
+- Should add a tag to the tag list when "Enter" is pressed in the tags input
+- Should post a new article when "Publish Article" is clicked
+
+## Edit Article Page
+- Should exist at /#/editor/:articleId (template check)
+- Should update the article when "Publish Article" is clicked
+
+## Article Page
+- Should render a "Edit Article" button and "Delete Article" button if authored by the authenticated user
+- Should delete the article when "Delete Article" is clicked
+- Should navigate to the Edit Article Page when "Edit Article" is clicked
+
+## Header
+- Should render a "New Post" link that navigates to Create Article Page
 
 # Feature - Following
-- Profile Page should contain a 'follow user' button that when clicked follows that user
-- Profile Page should contain an 'unfollow user' if currently being followed, that when clicked unfollows the user
-<!-- Maybe add Followers and Following tabs on Profile Page -->
+
+## Profile Page
+- Should render a "Follow User" button if user is not followed by authenticated user
+- Should render an "Unfollow User" button if user is followed by authenticated user
+- Should follow user when "Follow User" buton is clicked
+- Should unfollow user when "Unfollow User" buton is clicked
+- Should not allow an authenticated user to follow themself
+
+## Home Page
+- Should contain a "Your Feed" tab
+- Should render a feed of articles authored by users that the authenticated user is following when the "Your Feed" tab is selected
+- Should render the text "No articles are here... yet" if there are no articles to display
 
 # Feature - Favoriting
-- A favorite icon should exist on each article in a feed
-- Clicking the favorite icon on a feed should add the article to the user's 'Favorited Articled'
-- Clicking the favorite icon on a feed should increase the favorited count by one
 
-
-
-
-
-
+## Article Snippet
+- Should render a favorite icon
+- Should favorite the article when the favorite icon is clicked and the article has not been favorited yet
+- Should unfavorite the article when the favorite icon is clicked  and the article has been favorited

@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "cross-env": "^4.0.0",
+    "cypress": "^0.20.1",
     "react-scripts": "0.9.5"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
     "start": "cross-env PORT=4100 react-scripts start",
     "build": "react-scripts build",
     "test": "cross-env PORT=4100 react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress": "cypress open"
   }
 }
